@@ -73,9 +73,9 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
         img = sample_timestep(img, t, model)
         # Edit: This is to maintain the natural range of the distribution
         img = torch.clamp(img, -1.0, 1.0)
-
+        print(img.shape)
         if i % stepsize == 0:
-            image_list.append(img.permute(1, 2, 0))
+            image_list.append(img)
 
     # Create a grid of images
     image_grid = make_grid(image_list, nrow=5)  # Adjust nrow as needed
