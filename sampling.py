@@ -75,7 +75,7 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
         img = torch.clamp(img, -1.0, 1.0)
 
         if i % stepsize == 0:
-            image_list.append(img)
+            image_list.append(img.permute(1, 2, 0))
 
     # Create a grid of images
     image_grid = make_grid(image_list, nrow=5)  # Adjust nrow as needed
