@@ -59,6 +59,14 @@ def sample_timestep(x, t, model):
         return model_mean + torch.sqrt(posterior_variance_t) * noise
 
 
+reverse_transforms = transforms.Compose(
+    [
+        transforms.Lambda(lambda t: (t + 1) / 2),
+        transforms.Lambda(lambda t: t * 255.0),
+    ]
+)
+
+
 @torch.no_grad()
 def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
     # Sample noise
@@ -73,11 +81,10 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
         img = sample_timestep(img, t, model)
         # Edit: This is to maintain the natural range of the distribution
         img = torch.clamp(img, -1.0, 1.0)
-        img = (img + 1) / 2
-        img = img * 255
+        img = reverse_transforms(img[0])
         # print(img.shape)
         if i % stepsize == 0:
-            image_list.append(img.reshape(3, img_size, img_size))
+            image_list.append(img)
 
     # Create a grid of images
     image_grid = make_grid(image_list, nrow=5)  # Adjust nrow as needed
