@@ -23,7 +23,13 @@ from params import IMG_SIZE
 from torch.utils.data import Subset
 
 
-transform = transforms.Compose([transforms.ToTensor(), transforms.Resize((128, 128))])
+transform = transforms.Compose(
+    [
+        transforms.ToTensor(),
+        transforms.Resize((128, 128)),
+        transforms.Normalize((0.5,), (0.5,)),
+    ]
+)
 train_data = LFWPeople(root="./data", download=True, transform=transform)
 
 subset = Subset(train_data, np.random.choice(len(train_data), 1000, replace=False))
