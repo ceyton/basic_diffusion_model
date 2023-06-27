@@ -73,7 +73,7 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
         img = sample_timestep(img, t, model)
         # Edit: This is to maintain the natural range of the distribution
         img = torch.clamp(img, -1.0, 1.0)
-        print(img.shape)
+        # print(img.shape)
         if i % stepsize == 0:
             image_list.append(img.reshape(3, img_size, img_size))
 
