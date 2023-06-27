@@ -1,5 +1,6 @@
 from torch.optim import Adam
 import torch
+from tqdm import tqdm
 from loss import get_loss
 
 from model import SimpleUnet
@@ -21,8 +22,8 @@ from params import EPOCHS
 from params import IMG_SIZE
 
 transform = transforms.Compose([transforms.ToTensor(), transforms.Resize((128, 128))])
-train_data = LFWPeople(root="./data", download=False, transform=transform)
-train_loader = DataLoader(train_data, batch_size=4, shuffle=True)
+train_data = LFWPeople(root="./data", download=True, transform=transform)
+train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
 
 
 model = SimpleUnet()
@@ -32,7 +33,8 @@ optimizer = Adam(model.parameters(), lr=0.001)
 
 
 for epoch in range(EPOCHS):
-    for step, batch in enumerate(train_loader):
+    loop = tqdm(enumerate(train_loader), total=len(train_loader), leave=False)
+    for step, batch in loop:
         optimizer.zero_grad()
 
         t = torch.randint(0, T, (BATCH_SIZE,), device=DEVICE).long()
