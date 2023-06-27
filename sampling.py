@@ -80,6 +80,6 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None, epoch=0):
 
     # Create a grid of images
     image_grid = make_grid(
-        image_list, nrow=5, value_range=(-1, 1)
+        image_list, nrow=5, value_range=(-1, 1), normalize=True
     )  # Adjust nrow as needed
     save_image(image_grid, f"sample_{epoch}.png")
