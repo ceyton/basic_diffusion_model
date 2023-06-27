@@ -75,7 +75,6 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
         img = torch.clamp(img, -1.0, 1.0)
 
         if i % stepsize == 0:
-            save_image(img, f"sample_{i}.png")
             image_list.append(img)
 
     # Create a grid of images
