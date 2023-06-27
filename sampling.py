@@ -84,6 +84,7 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None, epoch=0):
 
         # print(img.shape)
         if i % stepsize == 0:
+            print(img.max(), img.min())
             image_list.append(img.reshape(3, img_size, img_size))
 
     # Create a grid of images
