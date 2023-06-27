@@ -23,7 +23,7 @@ from params import IMG_SIZE
 
 transform = transforms.Compose([transforms.ToTensor(), transforms.Resize((128, 128))])
 train_data = LFWPeople(root="./data", download=True, transform=transform)
-train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
+train_loader = DataLoader(train_data[:1000], batch_size=BATCH_SIZE, shuffle=True)
 
 
 model = SimpleUnet()
