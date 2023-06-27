@@ -20,10 +20,15 @@ from params import T
 from params import DEVICE
 from params import EPOCHS
 from params import IMG_SIZE
+from torch.utils.data import Subset
+
 
 transform = transforms.Compose([transforms.ToTensor(), transforms.Resize((128, 128))])
 train_data = LFWPeople(root="./data", download=True, transform=transform)
-train_loader = DataLoader(train_data[:1000], batch_size=BATCH_SIZE, shuffle=True)
+
+subset = Subset(train_data, np.random.choice(len(train_data), 1000, replace=False))
+
+train_loader = DataLoader(subset, batch_size=BATCH_SIZE, shuffle=True)
 
 
 model = SimpleUnet()
