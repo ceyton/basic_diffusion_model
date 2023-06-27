@@ -64,10 +64,9 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
     # Sample noise
     img_size = IMG_SIZE
     img = torch.randn((1, 3, img_size, img_size), device=device)
-    plt.figure(figsize=(15, 15))
-    plt.axis("off")
     num_images = 10
     stepsize = int(T / num_images)
+    image_list = []
 
     for i in range(0, T)[::-1]:
         t = torch.full((1,), i, device=device, dtype=torch.long)
@@ -77,6 +76,8 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
 
         if i % stepsize == 0:
             save_image(img, f"sample_{i}.png")
-            plt.subplot(1, num_images, int(i / stepsize) + 1)
-            show_tensor_image(img.detach().cpu())
-    plt.show()
+            image_list.append(img)
+
+    # Create a grid of images
+    image_grid = make_grid(image_list, nrow=5)  # Adjust nrow as needed
+    save_image(image_grid, f"sample.png")
