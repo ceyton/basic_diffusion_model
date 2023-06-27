@@ -54,4 +54,6 @@ for epoch in range(EPOCHS):
 
         if epoch % 1 == 0 and step == 0:
             print(f"Epoch {epoch} | step {step:03d} Loss: {loss.item()} ")
-            sample_plot_image(device=DEVICE, IMG_SIZE=IMG_SIZE, T=T, model=model)
+            sample_plot_image(
+                device=DEVICE, IMG_SIZE=IMG_SIZE, T=T, model=model, epoch=epoch
+            )

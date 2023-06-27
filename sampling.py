@@ -60,7 +60,7 @@ def sample_timestep(x, t, model):
 
 
 @torch.no_grad()
-def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
+def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None, epoch=0):
     # Sample noise
     img_size = IMG_SIZE
     img = torch.randn((1, 3, img_size, img_size), device=device)
@@ -82,4 +82,4 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
     image_grid = make_grid(
         image_list, nrow=5, value_range=(-1, 1)
     )  # Adjust nrow as needed
-    save_image(image_grid, f"sample.png")
+    save_image(image_grid, f"sample_{epoch}.png")
