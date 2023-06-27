@@ -38,7 +38,12 @@ optimizer = Adam(model.parameters(), lr=0.001)
 
 
 for epoch in range(EPOCHS):
-    loop = tqdm(enumerate(train_loader), total=len(train_loader), leave=False)
+    loop = tqdm(
+        enumerate(train_loader),
+        total=len(train_loader),
+        leave=False,
+        desc=f"Epoch {epoch}",
+    )
     for step, batch in loop:
         optimizer.zero_grad()
 
@@ -47,6 +52,6 @@ for epoch in range(EPOCHS):
         loss.backward()
         optimizer.step()
 
-        if epoch % 5 == 0 and step == 0:
+        if epoch % 1 == 0 and step == 0:
             print(f"Epoch {epoch} | step {step:03d} Loss: {loss.item()} ")
             sample_plot_image(device=DEVICE, IMG_SIZE=IMG_SIZE, T=T, model=model)

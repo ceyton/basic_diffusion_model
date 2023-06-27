@@ -10,6 +10,8 @@ from forward import get_index_from_list
 import matplotlib.pyplot as plt
 from torchvision import transforms
 import numpy as np
+from torchvision.utils import make_grid
+from torchvision.utils import save_image
 
 
 def show_tensor_image(image):
@@ -72,6 +74,9 @@ def sample_plot_image(device="cpu", IMG_SIZE=28, T=300, model=None):
         img = sample_timestep(img, t, model)
         # Edit: This is to maintain the natural range of the distribution
         img = torch.clamp(img, -1.0, 1.0)
+
+        save_image(img, f"sample_{i}.png")
+
         if i % stepsize == 0:
             plt.subplot(1, num_images, int(i / stepsize) + 1)
             show_tensor_image(img.detach().cpu())
